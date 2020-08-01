@@ -90,7 +90,7 @@
       <div class="player-control__playback-bar">
         <span>0:00</span>
         <div class="playback-bar__slider">
-          <input type="range" min="1" max="100" />
+          <Slider></Slider>
         </div>
         <span>4:10</span>
       </div>
@@ -99,8 +99,11 @@
 </template>
 
 <script>
+import Slider from "./Slider";
+
 export default {
   name: "NowPlayingBar",
+  components: { Slider },
   data() {
     return {
       isPlaying: false
@@ -164,20 +167,6 @@ export default {
   margin: 0 0.75rem;
   display: flex;
   align-items: center;
-
-  &:hover input[type="range"]::-webkit-slider-thumb {
-    width: 0.75rem;
-    height: 0.75rem;
-    margin-top: -0.25rem;
-    border-radius: 50%;
-    background: #ffffff;
-    cursor: pointer;
-  }
-
-  input {
-    width: 100%;
-    height: 0.25rem;
-  }
 }
 
 .play-btn {

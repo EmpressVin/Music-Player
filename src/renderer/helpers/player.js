@@ -23,6 +23,11 @@ class Player {
       autoplay: true,
       html5: true
     });
+
+    this.current.once("load", () => {
+      console.log(this.current.duration());
+    });
+
     notifySongPlaying();
   }
 

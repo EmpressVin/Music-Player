@@ -60,7 +60,8 @@ body {
 
 input[type="range"] {
   -webkit-appearance: none;
-  background-color: #404040;
+  background: linear-gradient(90deg, #b3b3b3 0%, #404040 0%);
+  border-radius: 2px;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -70,7 +71,6 @@ input[type="range"] {
     width: 100%;
     height: 0.25rem;
     cursor: pointer;
-    background-color: #fff;
   }
 
   &:focus {
