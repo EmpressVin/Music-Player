@@ -6,8 +6,6 @@ import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 
 import setupIPCListeners from "./main/listener";
 
-import { a } from "./main/helpers/debug";
-
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -92,23 +90,6 @@ app.on("ready", async () => {
 
   createWindow();
   setupIPCListeners();
-
-  const menuTemplate = [
-    {
-      label: "Debug",
-      submenu: [
-        {
-          label: "Add folder...",
-          click: () => {
-            a();
-          }
-        }
-      ]
-    }
-  ];
-
-  const menu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(menu);
 });
 
 // Exit cleanly on request from parent process in development mode.

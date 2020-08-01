@@ -98,7 +98,6 @@ export default {
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     opacity: 0;
-    transition: all 0.25s;
     -webkit-transition: all 0.25s;
   }
 

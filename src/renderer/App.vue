@@ -1,16 +1,20 @@
 <template>
-  <div id="app" class="flex flex-row">
-    <NavBar></NavBar>
-    <router-view />
+  <div id="app" class="flex flex-col">
+    <div class="App__main-window">
+      <NavBar></NavBar>
+      <router-view />
+    </div>
+    <NowPlayingBar></NowPlayingBar>
   </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar";
+import NowPlayingBar from "./components/NowPlayingBar";
 
 export default {
   name: "App",
-  components: { NavBar }
+  components: { NavBar, NowPlayingBar }
 };
 </script>
 
@@ -33,6 +37,13 @@ body {
   color: white;
 }
 
+.App__main-window {
+  width: 100%;
+  height: calc(100% - 5.5rem);
+  display: flex;
+  flex-direction: row;
+}
+
 .main-view {
   background-color: #121212;
   overflow: auto;
@@ -44,6 +55,26 @@ body {
 
   &::-webkit-scrollbar-thumb {
     background-color: #5a5a5a;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  background-color: #404040;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.25rem;
+    cursor: pointer;
+    background-color: #fff;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 </style>

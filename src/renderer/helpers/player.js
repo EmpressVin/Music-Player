@@ -1,5 +1,13 @@
 import { Howl } from "howler";
 
+const notifySongPlaying = () => {
+  Event.$emit("song-playing");
+};
+
+const notifySongPaused = () => {
+  Event.$emit("song-paused");
+};
+
 class Player {
   constructor() {
     this.current = null;
@@ -11,20 +19,24 @@ class Player {
     }
 
     this.current = new Howl({
-      src: [`local://${path}`]
+      src: `local://${path}`,
+      autoplay: true,
+      html5: true
     });
-    this.current.play();
+    notifySongPlaying();
   }
 
   resume() {
     if (this.current !== null) {
       this.current.play();
+      notifySongPlaying();
     }
   }
 
   pause() {
     if (this.current !== null) {
       this.current.pause();
+      notifySongPaused();
     }
   }
 }
