@@ -87,29 +87,30 @@
           </svg>
         </button>
       </div>
-      <div class="player-control__playback-bar">
-        <span>0:00</span>
-        <div class="playback-bar__slider">
-          <Slider></Slider>
-        </div>
-        <span>4:10</span>
-      </div>
+      <PlaybackBar></PlaybackBar>
     </div>
   </div>
 </template>
 
 <script>
-import Slider from "./Slider";
+import PlaybackBar from "./PlaybackBar";
 
 export default {
   name: "NowPlayingBar",
-  components: { Slider },
+  components: { PlaybackBar },
   data() {
     return {
-      isPlaying: false
+      isPlaying: false,
+      playbackPosition: 0,
+      playbackDuration: 0,
+      playbackTimer: null
     };
   },
   created() {
+    window.Event.$on("song-started", () => {
+      this.isPlaying = true;
+    });
+
     window.Event.$on("song-playing", () => {
       this.isPlaying = true;
     });
@@ -141,6 +142,8 @@ export default {
 }
 
 .now-playing-bar__player-control {
+  width: 100%;
+  max-width: 64rem;
   display: flex;
   flex-direction: column;
 }
@@ -149,23 +152,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-}
-
-.player-control__playback-bar {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
-}
-
-.playback-bar__slider {
-  width: 18rem;
-  height: 1rem;
-  margin: 0 0.75rem;
-  display: flex;
   align-items: center;
 }
 

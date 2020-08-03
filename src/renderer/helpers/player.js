@@ -1,11 +1,15 @@
 import { Howl } from "howler";
 
-const notifySongPlaying = () => {
-  Event.$emit("song-playing");
+const notifySongStarted = duration => {
+  Event.$emit("song-started", duration);
 };
 
-const notifySongPaused = () => {
-  Event.$emit("song-paused");
+const notifySongPlaying = position => {
+  Event.$emit("song-playing", position);
+};
+
+const notifySongPaused = position => {
+  Event.$emit("song-paused", position);
 };
 
 class Player {
@@ -25,24 +29,34 @@ class Player {
     });
 
     this.current.once("load", () => {
-      console.log(this.current.duration());
+      notifySongStarted(this.current.duration());
     });
-
-    notifySongPlaying();
   }
 
   resume() {
     if (this.current !== null) {
+      const positon = this.getPosition();
       this.current.play();
-      notifySongPlaying();
+      notifySongPlaying(positon);
     }
   }
 
   pause() {
     if (this.current !== null) {
       this.current.pause();
-      notifySongPaused();
+      notifySongPaused(this.getPosition());
     }
+  }
+
+  seek(seconds) {
+    if (this.current !== null) {
+      this.current.seek(seconds);
+    }
+  }
+
+  getPosition() {
+    const pos = this.current.seek();
+    return pos;
   }
 }
 

@@ -5,11 +5,15 @@ export default () => {
     Player.play(songPath);
   });
 
-  Event.$on("resume-song", songPath => {
-    Player.resume(songPath);
+  Event.$on("resume-song", () => {
+    Player.resume();
   });
 
-  Event.$on("pause-song", songPath => {
-    Player.pause(songPath);
+  Event.$on("pause-song", () => {
+    Player.pause();
+  });
+
+  Event.$on("seek-song", seconds => {
+    Player.seek(seconds);
   });
 };
