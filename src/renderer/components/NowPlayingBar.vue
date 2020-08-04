@@ -89,15 +89,17 @@
       </div>
       <PlaybackBar></PlaybackBar>
     </div>
+    <VolumeBar></VolumeBar>
   </div>
 </template>
 
 <script>
 import PlaybackBar from "./PlaybackBar";
+import VolumeBar from "./VolumeBar";
 
 export default {
   name: "NowPlayingBar",
-  components: { PlaybackBar },
+  components: { PlaybackBar, VolumeBar },
   data() {
     return {
       isPlaying: false,
@@ -144,6 +146,7 @@ export default {
 .now-playing-bar__player-control {
   width: 100%;
   max-width: 64rem;
+  padding: 0 6rem;
   display: flex;
   flex-direction: column;
 }

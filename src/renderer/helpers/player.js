@@ -15,6 +15,7 @@ const notifySongPaused = position => {
 class Player {
   constructor() {
     this.current = null;
+    this.volumeLevel = 1;
   }
 
   play(path) {
@@ -24,6 +25,7 @@ class Player {
 
     this.current = new Howl({
       src: `local://${path}`,
+      volume: this.volumeLevel,
       autoplay: true,
       html5: true
     });
@@ -51,6 +53,20 @@ class Player {
   seek(seconds) {
     if (this.current !== null) {
       this.current.seek(seconds);
+    }
+  }
+
+  volume(volume) {
+    this.volumeLevel = volume;
+
+    if (this.current !== null) {
+      this.current.volume(volume);
+    }
+  }
+
+  mute(state) {
+    if (this.current !== null) {
+      this.current.mute(state);
     }
   }
 

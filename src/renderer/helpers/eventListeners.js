@@ -16,4 +16,12 @@ export default () => {
   Event.$on("seek-song", seconds => {
     Player.seek(seconds);
   });
+
+  Event.$on("change-volume", volume => {
+    Player.volume(volume);
+  });
+
+  Event.$on("toggle-sound", state => {
+    Player.mute(state);
+  });
 };
