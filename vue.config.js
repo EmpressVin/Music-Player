@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   pluginOptions: {
     electronBuilder: {
@@ -11,6 +13,13 @@ module.exports = {
       },
       externals: ["sqlite3", "knex"],
       nodeIntegration: true
+    }
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src/renderer")
+      }
     }
   },
   chainWebpack: config => {

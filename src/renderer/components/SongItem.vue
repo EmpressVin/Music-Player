@@ -42,11 +42,16 @@
 </template>
 
 <script>
-// import { Howl } from "howler";
+// Import Vuex store related items
+import { mapMutations } from "vuex";
 
 export default {
   name: "SongItem",
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -62,8 +67,14 @@ export default {
     };
   },
   methods: {
+    ...mapMutations({
+      setCurrentSong: "Player/SET_CURRENT_SONG"
+    }),
     playSong() {
-      window.Event.$emit("play-song", this.path);
+      this.setCurrentSong({
+        id: this.id,
+        path: this.path
+      });
     }
   }
 };

@@ -1,0 +1,13 @@
+{
+  "complierOptions": {
+    "paths": {
+      "@store/*": [
+        "src/renderer/store/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist_electron"
+  ]
+}

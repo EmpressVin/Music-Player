@@ -19,6 +19,7 @@
         </div>
         <SongItem
           v-for="song in songs"
+          :id="song.song_id"
           :title="song.song_title"
           :path="song.song_path"
           :key="song.song_id"
