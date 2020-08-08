@@ -1,6 +1,6 @@
 <template>
   <div class="player-control__playback-bar">
-    <span>{{ convertTime(playbackPosition) }}</span>
+    <span>{{ convertTime(localElapsedTime) }}</span>
     <div
       class="playback-bar__slider"
       @mouseenter="handleMouseEnter"
@@ -9,104 +9,74 @@
       <input
         type="range"
         min="0"
-        :max="playbackDuration"
+        :max="duration"
         step="0.1"
         ref="slider"
-        v-model.number="playbackPosition"
+        v-model.number="localElapsedTime"
         @mouseup="handleMouseUp"
         @mousedown="handleMouseDown"
         @input="handleInput"
       />
     </div>
-    <span>{{ convertTime(playbackDuration) }}</span>
+    <span>{{ convertTime(duration) }}</span>
   </div>
 </template>
 
 <script>
-let hover = false;
+// Import Vuex store related items
+import { mapGetters, mapActions } from "vuex";
+
+let isHover = false;
+let isInput = false;
 
 export default {
   name: "PlaybackBar",
-  data() {
+  data: function() {
     return {
-      playbackPosition: 0,
-      playbackDuration: 0,
-      playbackTimer: null,
-      isPlaying: false
+      localElapsedTime: 0
     };
   },
-  created() {
-    window.Event.$on("song-started", duration => {
-      this.playbackPosition = 0;
-      this.playbackDuration = duration;
-      this.isPlaying = true;
-
-      this.stopTimer();
-
+  computed: {
+    ...mapGetters({
+      elapsedTime: "Player/getElapsedTime",
+      duration: "Player/getDuration"
+    })
+  },
+  watch: {
+    elapsedTime(newTime) {
+      if (!isInput) this.localElapsedTime = newTime;
       this.updateBarProgress();
-      this.startTimer();
-    });
-
-    window.Event.$on("song-playing", position => {
-      this.startTimer();
-
-      this.playbackPosition = position;
-      this.isPlaying = true;
-    });
-
-    window.Event.$on("song-paused", position => {
-      this.stopTimer();
-
-      this.playbackPosition = position;
-      this.isPlaying = false;
-    });
+    }
   },
   methods: {
+    ...mapActions({
+      seekSong: "Player/seekSong"
+    }),
     updateBarProgress() {
-      const color = hover === false ? "#b3b3b3" : "#1db954";
-      const percent = (this.playbackPosition / this.playbackDuration) * 100;
+      const color = isHover === false ? "#b3b3b3" : "#1db954";
+      const percent = (this.localElapsedTime / this.duration) * 100;
 
       const gradient = `linear-gradient(90deg, ${color} ${percent}%, #404040 ${percent}%)`;
       this.$refs.slider.style.background = gradient;
     },
     handleMouseEnter() {
-      hover = true;
+      isHover = true;
       this.updateBarProgress();
     },
     handleMouseLeave() {
-      hover = false;
+      isHover = false;
       this.updateBarProgress();
     },
     handleMouseUp() {
-      window.Event.$emit("seek-song", this.playbackPosition);
-
-      if (this.isPlaying) this.startTimer();
+      this.seekSong(this.localElapsedTime);
+      isInput = false;
     },
     handleMouseDown() {
-      this.stopTimer();
+      isInput = true;
     },
     handleInput() {
-      hover = true;
+      isHover = true;
       this.updateBarProgress();
-    },
-    startTimer() {
-      this.playbackTimer = setInterval(() => {
-        this.playbackPosition += 0.5;
-        this.updateBarProgress();
-
-        if (
-          Math.floor(this.playbackPosition) ===
-          Math.floor(this.playbackDuration)
-        ) {
-          this.stopTimer();
-        }
-      }, 500);
-    },
-    stopTimer() {
-      if (this.playbackTimer !== null) {
-        clearInterval(this.playbackTimer);
-        this.playbackTimer = null;
-      }
     },
     convertTime(time) {
       const min = Math.floor(time / 60);

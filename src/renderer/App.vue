@@ -1,23 +1,20 @@
 <template>
   <div id="app" class="flex flex-col">
-    <MusicPlayer>
-      <div class="App__main-window">
-        <NavBar></NavBar>
-        <router-view />
-      </div>
-      <NowPlayingBar></NowPlayingBar>
-    </MusicPlayer>
+    <div class="App__main-window">
+      <NavBar></NavBar>
+      <router-view />
+    </div>
+    <NowPlayingBar></NowPlayingBar>
   </div>
 </template>
 
 <script>
-import MusicPlayer from "@/components/common/MusicPlayer";
 import NavBar from "./components/NavBar";
 import NowPlayingBar from "./components/NowPlayingBar";
 
 export default {
   name: "App",
-  components: { MusicPlayer, NavBar, NowPlayingBar }
+  components: { NavBar, NowPlayingBar }
 };
 </script>
 

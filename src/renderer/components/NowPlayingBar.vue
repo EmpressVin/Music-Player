@@ -34,7 +34,7 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="play-btn"
-            @click="toggleIsPlaying(true)"
+            @click="resumeSong"
           >
             <circle cx="16" cy="16" r="15" />
             <path
@@ -51,7 +51,7 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="play-btn"
-            @click="toggleIsPlaying(false)"
+            @click="pauseSong"
           >
             <circle cx="16" cy="16" r="15" />
             <path d="M11 10H14V22H11V10ZM18 10H21V22H18V10Z" fill="white" />
@@ -95,8 +95,7 @@
 
 <script>
 // Import Vuex store related items
-import { mapGetters } from "vuex";
-import { mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 import PlaybackBar from "./PlaybackBar";
 import VolumeBar from "./VolumeBar";
@@ -104,27 +103,18 @@ import VolumeBar from "./VolumeBar";
 export default {
   name: "NowPlayingBar",
   components: { PlaybackBar, VolumeBar },
-  data() {
-    return {
-      playbackPosition: 0,
-      playbackDuration: 0,
-      playbackTimer: null
-    };
-  },
   computed: {
     ...mapGetters({
-      isPlaying: "Player/isPlaying"
+      isPlaying: "Player/isPlaying",
+      elapsedTime: "Player/getElapsedTime",
+      duration: "Player/getDuration"
     })
   },
   methods: {
-    ...mapMutations({
-      setPlaying: "Player/SET_PLAYING"
-    }),
-    toggleIsPlaying(state) {
-      if (this.isPlaying !== null) {
-        this.setPlaying(state);
-      }
-    }
+    ...mapActions({
+      pauseSong: "Player/pauseSong",
+      resumeSong: "Player/resumeSong"
+    })
   }
 };
 </script>

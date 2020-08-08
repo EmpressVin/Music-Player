@@ -5,7 +5,11 @@
     @mouseleave="hovered = false"
   >
     <div class="w-8 flex justify-center">
-      <button v-if="hovered" class="focus:outline-none" @click="playSong">
+      <button
+        v-if="hovered"
+        class="focus:outline-none"
+        @click="playSong({ id, path })"
+      >
         <svg
           width="26"
           height="26"
@@ -43,7 +47,7 @@
 
 <script>
 // Import Vuex store related items
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "SongItem",
@@ -67,15 +71,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      setCurrentSong: "Player/SET_CURRENT_SONG"
-    }),
-    playSong() {
-      this.setCurrentSong({
-        id: this.id,
-        path: this.path
-      });
-    }
+    ...mapActions({
+      playSong: "Player/playSong"
+    })
   }
 };
 </script>

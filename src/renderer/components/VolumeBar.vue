@@ -81,6 +81,9 @@
 </template>
 
 <script>
+// Import Vuex store related items
+import { mapActions } from "vuex";
+
 let hover = false;
 
 export default {
@@ -95,6 +98,9 @@ export default {
     this.updateBarProgress();
   },
   methods: {
+    ...mapActions({
+      changeVolumeLevel: "Player/changeVolumeLevel"
+    }),
     toggleSound() {
       this.isMuted = !this.isMuted;
       window.Event.$emit("toggle-sound", this.isMuted);
@@ -117,7 +123,7 @@ export default {
     handleInput() {
       hover = true;
       this.updateBarProgress();
-      window.Event.$emit("change-volume", this.volumeLevel);
+      this.changeVolumeLevel(this.volumeLevel);
     }
   }
 };
