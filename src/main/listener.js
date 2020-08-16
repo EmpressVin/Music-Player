@@ -64,6 +64,12 @@ export default () => {
     }
   });
 
+  ipcMain.on("req-song-by-id", async (event, id) => {
+    const res = await Song.getById(id);
+
+    event.reply("res-song-by-id", res);
+  });
+
   ipcMain.on("req-all-albums", async event => {
     const res = await Album.getWithArtist();
 

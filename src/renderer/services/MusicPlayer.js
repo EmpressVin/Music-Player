@@ -8,7 +8,7 @@ export default class MusicPlayer { //eslint-disable-line
   static timer = null;
   static seekTime = null;
 
-  static play(path, onSuccess, onTick, onEnd) {
+  static play({ path, onSuccess, onTick, onEnd }) {
     if (this.current !== null) {
       this.current.unload();
       clearInterval(this.timer);
@@ -29,7 +29,6 @@ export default class MusicPlayer { //eslint-disable-line
       },
       onend: () => {
         clearInterval(this.timer);
-        this.current = null;
         onEnd();
       }
     });

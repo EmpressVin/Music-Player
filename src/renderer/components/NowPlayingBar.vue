@@ -1,5 +1,6 @@
 <template>
   <div class="App__now-playing-bar">
+    <CurrentSongInfo></CurrentSongInfo>
     <div class="now-playing-bar__player-control">
       <div class="player-control__buttons">
         <button class="icon">
@@ -15,7 +16,7 @@
             />
           </svg>
         </button>
-        <button class="ml-8 icon">
+        <button class="ml-8 icon" @click="prevSong">
           <svg
             width="20"
             height="20"
@@ -26,7 +27,11 @@
             <path d="M4 5H7V15H4V5ZM16 5V15L7 10L16 5Z" />
           </svg>
         </button>
-        <button class="ml-6 focus:outline-none" v-show="!isPlaying">
+        <button
+          class="ml-6 focus:outline-none"
+          v-show="!isPlaying"
+          @click="resumeSong"
+        >
           <svg
             width="32"
             height="32"
@@ -34,7 +39,6 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="play-btn"
-            @click="resumeSong"
           >
             <circle cx="16" cy="16" r="15" />
             <path
@@ -43,7 +47,11 @@
             />
           </svg>
         </button>
-        <button class="ml-6 focus:outline-none" v-show="isPlaying">
+        <button
+          class="ml-6 focus:outline-none"
+          v-show="isPlaying"
+          @click="pauseSong"
+        >
           <svg
             width="32"
             height="32"
@@ -51,13 +59,12 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="play-btn"
-            @click="pauseSong"
           >
             <circle cx="16" cy="16" r="15" />
             <path d="M11 10H14V22H11V10ZM18 10H21V22H18V10Z" fill="white" />
           </svg>
         </button>
-        <button class="ml-6 icon">
+        <button class="ml-6 icon" @click="nextSong">
           <svg
             width="20"
             height="20"
@@ -97,12 +104,13 @@
 // Import Vuex store related items
 import { mapGetters, mapActions } from "vuex";
 
+import CurrentSongInfo from "./NowPlaying/SongInfo";
 import PlaybackBar from "./PlaybackBar";
 import VolumeBar from "./VolumeBar";
 
 export default {
   name: "NowPlayingBar",
-  components: { PlaybackBar, VolumeBar },
+  components: { CurrentSongInfo, PlaybackBar, VolumeBar },
   computed: {
     ...mapGetters({
       isPlaying: "Player/isPlaying",
@@ -113,7 +121,9 @@ export default {
   methods: {
     ...mapActions({
       pauseSong: "Player/pauseSong",
-      resumeSong: "Player/resumeSong"
+      resumeSong: "Player/resumeSong",
+      nextSong: "Player/nextSong",
+      prevSong: "Player/prevSong"
     })
   }
 };
@@ -126,14 +136,13 @@ export default {
   background-color: #282828;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
 .now-playing-bar__player-control {
   width: 100%;
   max-width: 64rem;
-  padding: 0 6rem;
   display: flex;
   flex-direction: column;
 }

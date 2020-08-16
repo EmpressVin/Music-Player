@@ -5,11 +5,7 @@
     @mouseleave="hovered = false"
   >
     <div class="w-8 flex justify-center">
-      <button
-        v-if="hovered"
-        class="focus:outline-none"
-        @click="playSong({ id, path })"
-      >
+      <button v-if="hovered" class="focus:outline-none" @click="playSong(id)">
         <svg
           width="26"
           height="26"
@@ -46,9 +42,6 @@
 </template>
 
 <script>
-// Import Vuex store related items
-import { mapActions } from "vuex";
-
 export default {
   name: "SongItem",
   props: {
@@ -63,17 +56,16 @@ export default {
     path: {
       type: String,
       required: true
+    },
+    playSong: {
+      type: Function,
+      required: true
     }
   },
   data() {
     return {
       hovered: false
     };
-  },
-  methods: {
-    ...mapActions({
-      playSong: "Player/playSong"
-    })
   }
 };
 </script>

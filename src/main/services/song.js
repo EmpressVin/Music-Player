@@ -36,6 +36,21 @@ export default class SongService {
     return songId;
   }
 
+  static async getById(id) {
+    return await knex(tableNames.song)
+      .join(tableNames.song_artist, "song.id", "=", "song_artist.song_id")
+      .join(tableNames.artist, "song_artist.artist_id", "=", "artist.id")
+      .select(
+        "song.id as song_id",
+        "song.title as song_title",
+        "song.path as song_path",
+        "song.album_id as album_id",
+        "artist.id as artist_id",
+        "artist.name as artist_name"
+      )
+      .where("song.id", id);
+  }
+
   static async getFromAlbum(id) {
     return await knex(tableNames.song)
       .join(tableNames.song_artist, "song.id", "=", "song_artist.song_id")
