@@ -19,9 +19,11 @@
         </div>
         <SongItem
           v-for="song in songs"
+          :id="song.song_id"
           :title="song.song_title"
           :path="song.song_path"
           :key="song.song_id"
+          :playSong="songId => playAlbum({ songs, startSongId: songId })"
         >
         </SongItem>
       </div>
@@ -31,6 +33,8 @@
 
 <script>
 import { ipcRenderer, webFrame } from "electron";
+import { mapActions } from "vuex";
+
 import { getAlbumCoverPath } from "../helpers/util";
 
 import AlbumInfo from "../components/AlbumInfo";
@@ -87,6 +91,9 @@ export default {
     });
   },
   methods: {
+    ...mapActions({
+      playAlbum: "Player/playAlbum"
+    }),
     getAlbumCoverPath() {
       return getAlbumCoverPath(this.id);
     }

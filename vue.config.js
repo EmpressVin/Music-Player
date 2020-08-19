@@ -1,4 +1,17 @@
+const path = require("path");
+
 module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+            @import "~@/styles/_mixins.scss";
+            @import "~@/styles/_variables.scss";
+            @import "~@/styles/utility.scss";
+          `
+      }
+    }
+  },
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
@@ -11,6 +24,13 @@ module.exports = {
       },
       externals: ["sqlite3", "knex"],
       nodeIntegration: true
+    }
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src/renderer")
+      }
     }
   },
   chainWebpack: config => {

@@ -5,7 +5,7 @@
     @mouseleave="hovered = false"
   >
     <div class="w-8 flex justify-center">
-      <button v-if="hovered" class="focus:outline-none" @click="playSong">
+      <button v-if="hovered" class="focus:outline-none" @click="playSong(id)">
         <svg
           width="26"
           height="26"
@@ -42,11 +42,13 @@
 </template>
 
 <script>
-// import { Howl } from "howler";
-
 export default {
   name: "SongItem",
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
@@ -54,17 +56,16 @@ export default {
     path: {
       type: String,
       required: true
+    },
+    playSong: {
+      type: Function,
+      required: true
     }
   },
   data() {
     return {
       hovered: false
     };
-  },
-  methods: {
-    playSong() {
-      window.Event.$emit("play-song", this.path);
-    }
   }
 };
 </script>
