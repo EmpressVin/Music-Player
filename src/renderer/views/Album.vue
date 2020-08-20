@@ -3,12 +3,13 @@
     class="w-full h-full px-8 pt-12 flex justify-center items-center main-view"
   >
     <div class="w-full h-full flex flex-col albums-view">
-      <AlbumInfo
+      <AlbumHeader
         :album_name="albumInfo.album_name"
         :album_cover_path="getAlbumCoverPath()"
         :album_year="albumInfo.album_year"
+        :album_color="albumInfo.album_color"
         :artist_name="albumInfo.artist_name"
-      ></AlbumInfo>
+      ></AlbumHeader>
       <div class="w-full mt-6 flex flex-col text-xs">
         <div
           class="w-full pb-1 flex flex-row items-center text-low-emphasis song-item"
@@ -36,15 +37,15 @@ import { mapActions } from "vuex";
 
 import { getAlbumCoverPath } from "../helpers/util";
 
-import AlbumInfo from "../components/AlbumInfo";
+import AlbumHeader from "../components/AlbumHeader";
 import SongRow from "../components/SongRow";
 
 export default {
   name: "Album",
-  components: { AlbumInfo, SongRow },
+  components: { AlbumHeader, SongRow },
   props: {
     id: {
-      type: Number,
+      type: String,
       require: true
     }
   },
