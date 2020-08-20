@@ -1,0 +1,59 @@
+@mixin margin($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  margin: $top $right $bottom $left;
+}
+
+@mixin margin-axis($y: 0, $x: 0) {
+  margin: $y $x;
+}
+
+@mixin padding-axis($y: 0, $x: 0) {
+  padding: $y $x;
+}
+
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin size($w: null, $h: null) {
+  width: $w;
+  height: $h;
+}
+
+@mixin square-size($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin letter-spacing($space) {
+  letter-spacing: $space;
+}
+
+@mixin flex($col: false, $row: false, $h-center: false, $v-center: false) {
+  display: flex;
+
+  @if $col {
+    flex-direction: column;
+
+    @if $h-center {
+      align-items: center;
+    }
+
+    @if $v-center {
+      justify-content: center;
+    }
+  } @else if $row {
+    flex-direction: row;
+
+    @if $h-center {
+      justify-content: center;
+    }
+
+    @if $v-center {
+      align-items: center;
+    }
+  }
+}

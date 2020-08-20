@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"vetur.validation.template": false,
+		"vetur.format.enable": false,
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"files.exclude": {
+			"**/.git": true, // this is a default value
+			"dist_electron": true, // this is a default value
+			"node_modules": true // this excludes the folder 
+			// only from the root of
+			// your workspace 
+		}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "echo",
+				"type": "shell",
+				"command": "echo Hello"
+			}
+		]
+	},
+}
