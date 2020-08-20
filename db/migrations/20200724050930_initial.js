@@ -42,6 +42,7 @@ exports.up = async knex => {
     knex.schema.createTable(tableNames.album, table => {
       table.increments().notNullable();
       table.string("name", 127).notNullable();
+      table.string("color", 7).notNullable();
       table.integer("year");
       table.date("date");
     })

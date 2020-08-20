@@ -1,5 +1,5 @@
 import { dialog, ipcMain } from "electron";
-
+import * as Vibrant from "node-vibrant";
 import * as mm from "music-metadata";
 
 // Import service class
@@ -36,6 +36,13 @@ export default () => {
           );
 
           currentAlbumId++;
+
+          const palette = await Vibrant.from(
+            parsedMetadata.common.picture[0].data
+          ).getPalette();
+          const [red, green, blue] = palette.Vibrant.getRgb();
+
+          albumObj.color = `${red}, ${green}, ${blue}`;
 
           albumId = await Album.insert(albumObj, true);
           const albumArtists = parsedMetadata.common.albumartist.split("; ");

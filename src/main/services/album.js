@@ -51,6 +51,7 @@ export default class AlbumService {
         "album.id as album_id",
         "album.name as album_name",
         "album.year as album_year",
+        "album.color as album_color",
         "artist.name as artist_name"
       );
 
