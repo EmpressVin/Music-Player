@@ -1,13 +1,18 @@
 {
   "complierOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
     "paths": {
-      "@store/*": [
-        "src/renderer/store/*"
+      "@/*": [
+        "./src/renderer/*"
+      ],
+      "Constants/*": [
+        "./src/constants/*"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist_electron"
+  "include": [
+    "src/**/*"
   ]
 }
