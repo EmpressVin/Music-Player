@@ -8,6 +8,7 @@
         </button>
         <button
           class="player-control-buttons__icon--big player-control-buttons__icon--margin-left"
+          @click="prevSong"
         >
           <SvgIcon :path="previousFilledPath" />
         </button>
@@ -27,6 +28,7 @@
         </button>
         <button
           class="player-control-buttons__icon--big player-control-buttons__icon--margin-right"
+          @click="nextSong"
         >
           <SvgIcon :path="nextFilledPath" />
         </button>
