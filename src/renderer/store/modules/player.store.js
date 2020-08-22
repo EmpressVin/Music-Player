@@ -1,9 +1,9 @@
 // Import mutation types
-import * as mutation from "@/store/mutation-types";
+import * as mutation from '@/store/mutation-types';
 
 // Import required services
-import MusicPlayer from "@/services/MusicPlayer";
-import SongQueue from "@/services/SongQueue";
+import MusicPlayer from '@/services/MusicPlayer';
+import SongQueue from '@/services/SongQueue';
 
 // State object
 const state = {
@@ -12,7 +12,7 @@ const state = {
   elapsedTime: 0,
   duration: 0,
   volumeLevel: 1,
-  queue: new SongQueue()
+  queue: new SongQueue(),
 };
 
 // Mutation functions
@@ -34,7 +34,7 @@ const mutations = {
   },
   [mutation.INCREMENT_ELAPSED_TIME](state, step) {
     state.elapsedTime += step;
-  }
+  },
 };
 
 // Action functions
@@ -52,14 +52,14 @@ const actions = {
       return { id: song.song_id, path: song.song_path };
     });
 
-    dispatch("addSongListToQueue", sanatizedSongs);
+    dispatch('addSongListToQueue', sanatizedSongs);
 
     // Set the current song in the song queue and vuex store to the one chosen by the user
     state.queue.setCurrentById(payload.startSongId);
     commit(mutation.SET_CURRENT_SONG, state.queue.current());
 
     // Start playing the album
-    dispatch("playSong");
+    dispatch('playSong');
   },
   async playSong({ state, commit, dispatch }) {
     if (state.currentSong !== null) {
@@ -72,7 +72,7 @@ const actions = {
           commit(mutation.SET_DURATION, duration);
         },
         onTick: () => commit(mutation.INCREMENT_ELAPSED_TIME, 0.5),
-        onEnd: () => dispatch("nextSong")
+        onEnd: () => dispatch('nextSong'),
       });
     } else {
       commit(mutation.SET_PLAYING, false);
@@ -100,7 +100,7 @@ const actions = {
 
     if (newSong !== null) {
       commit(mutation.SET_CURRENT_SONG, newSong);
-      dispatch("playSong");
+      dispatch('playSong');
     } else {
       commit(mutation.SET_PLAYING, false);
     }
@@ -111,7 +111,7 @@ const actions = {
 
     if (newSong !== null) {
       commit(mutation.SET_CURRENT_SONG, newSong);
-      dispatch("playSong");
+      dispatch('playSong');
     } else {
       commit(mutation.SET_PLAYING, false);
     }
@@ -119,7 +119,7 @@ const actions = {
   async changeVolumeLevel({ commit }, volumeLevel) {
     MusicPlayer.volume(volumeLevel);
     commit(mutation.SET_VOLUME_LEVEL, volumeLevel);
-  }
+  },
 };
 
 // Getter functions
@@ -132,7 +132,7 @@ const getters = {
   isPlaying: state => state.playing,
   getElapsedTime: state => state.elapsedTime,
   getDuration: state => state.duration,
-  getVolumeLevel: state => state.volumeLevel
+  getVolumeLevel: state => state.volumeLevel,
 };
 
 export default {
@@ -140,5 +140,5 @@ export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 };

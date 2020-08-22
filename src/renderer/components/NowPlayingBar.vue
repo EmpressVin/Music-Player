@@ -44,17 +44,17 @@
 
 <script>
 // Import Vuex store related items
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 
-import CurrentSongInfo from "./NowPlaying/SongInfo";
-import PlaybackBar from "./PlaybackBar";
-import VolumeBar from "./VolumeBar";
-import SvgIcon from "@/components/ui/SvgIcon";
+import CurrentSongInfo from './NowPlaying/SongInfo';
+import PlaybackBar from './PlaybackBar';
+import VolumeBar from './VolumeBar';
+import SvgIcon from '@/components/ui/SvgIcon';
 
-import * as IconPath from "@/../constants/iconPaths";
+import * as IconPath from '@/../constants/iconPaths';
 
 export default {
-  name: "NowPlayingBar",
+  name: 'NowPlayingBar',
   components: { CurrentSongInfo, PlaybackBar, VolumeBar, SvgIcon },
   data() {
     return {
@@ -63,24 +63,24 @@ export default {
       playOutlinedPath: IconPath.PLAY_OUTLINED,
       pauseOutlinedPath: IconPath.PAUSE_OUTLINED,
       nextFilledPath: IconPath.NEXT_FILLED,
-      repeatFilledPath: IconPath.REPEAT_FILLED
+      repeatFilledPath: IconPath.REPEAT_FILLED,
     };
   },
   computed: {
     ...mapGetters({
-      isPlaying: "Player/isPlaying",
-      elapsedTime: "Player/getElapsedTime",
-      duration: "Player/getDuration"
-    })
+      isPlaying: 'Player/isPlaying',
+      elapsedTime: 'Player/getElapsedTime',
+      duration: 'Player/getDuration',
+    }),
   },
   methods: {
     ...mapActions({
-      pauseSong: "Player/pauseSong",
-      resumeSong: "Player/resumeSong",
-      nextSong: "Player/nextSong",
-      prevSong: "Player/prevSong"
-    })
-  }
+      pauseSong: 'Player/pauseSong',
+      resumeSong: 'Player/resumeSong',
+      nextSong: 'Player/nextSong',
+      prevSong: 'Player/prevSong',
+    }),
+  },
 };
 </script>
 

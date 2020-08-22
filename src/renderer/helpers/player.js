@@ -1,15 +1,15 @@
-import { Howl } from "howler";
+import { Howl } from 'howler';
 
 const notifySongStarted = duration => {
-  Event.$emit("song-started", duration);
+  Event.$emit('song-started', duration);
 };
 
 const notifySongPlaying = position => {
-  Event.$emit("song-playing", position);
+  Event.$emit('song-playing', position);
 };
 
 const notifySongPaused = position => {
-  Event.$emit("song-paused", position);
+  Event.$emit('song-paused', position);
 };
 
 class Player {
@@ -27,10 +27,10 @@ class Player {
       src: `local://${path}`,
       volume: this.volumeLevel,
       autoplay: true,
-      html5: true
+      html5: true,
     });
 
-    this.current.once("load", () => {
+    this.current.once('load', () => {
       notifySongStarted(this.current.duration());
     });
   }

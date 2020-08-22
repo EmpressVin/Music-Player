@@ -9,11 +9,7 @@
     @mouseleave="isHovered = false"
   >
     <div class="song-row__play-container">
-      <button
-        v-if="isHovered"
-        class="song-row__play-icon"
-        @click="playSong(id)"
-      >
+      <button v-if="isHovered" class="song-row__play-icon" @click="playSong(id)">
         <SvgIcon :path="playOutlinedPath" />
       </button>
       <span v-else class="font-medium">5</span>
@@ -31,31 +27,31 @@
 </template>
 
 <script>
-import SvgIcon from "@/components/ui/SvgIcon";
-import ContextMenu from "@/components/ContextMenu";
+import SvgIcon from '@/components/ui/SvgIcon';
+import ContextMenu from '@/components/ContextMenu';
 
-import * as IconPath from "@/../constants/iconPaths";
+import * as IconPath from '@/../constants/iconPaths';
 
 export default {
-  name: "SongRow",
+  name: 'SongRow',
   components: { SvgIcon, ContextMenu },
   props: {
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     path: {
       type: String,
-      required: true
+      required: true,
     },
     playSong: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -63,10 +59,10 @@ export default {
       showContextMenu: false,
       mousePosition: {
         x: 0,
-        y: 0
+        y: 0,
       },
       heartOutlinedPath: IconPath.HEART_OUTLINED,
-      playOutlinedPath: IconPath.PLAY_OUTLINED
+      playOutlinedPath: IconPath.PLAY_OUTLINED,
     };
   },
   methods: {
@@ -75,12 +71,12 @@ export default {
 
       this.mousePostion = {
         x: e.clientX,
-        y: e.clientY
+        y: e.clientY,
       };
 
       this.showContextMenu = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

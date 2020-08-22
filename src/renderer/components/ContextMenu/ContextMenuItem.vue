@@ -19,26 +19,26 @@
 </template>
 
 <script>
-import SvgIcon from "@/components/ui/SvgIcon";
+import SvgIcon from '@/components/ui/SvgIcon';
 
 export default {
-  name: "ContextMenuItem",
+  name: 'ContextMenuItem',
   components: { SvgIcon },
   props: {
     icon: {
       type: String,
-      required: true
+      required: true,
     },
     text: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      hovered: false
+      hovered: false,
     };
-  }
+  },
 };
 </script>
 

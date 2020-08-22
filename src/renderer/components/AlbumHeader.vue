@@ -2,7 +2,7 @@
   <div
     class="album-header"
     :style="{
-      background: `linear-gradient(180deg, rgba(${album_color}, 0.3), rgba(0, 0, 0, 0))`
+      background: `linear-gradient(180deg, rgba(${album_color}, 0.3), rgba(0, 0, 0, 0))`,
     }"
   >
     <img :src="album_cover_path" class="w-32" />
@@ -20,29 +20,29 @@
 
 <script>
 export default {
-  name: "AlbumHeader",
+  name: 'AlbumHeader',
   props: {
     album_name: {
       type: String,
-      require: true
+      require: true,
     },
     album_cover_path: {
       type: String,
-      require: true
+      require: true,
     },
     artist_name: {
       type: String,
-      require: true
+      require: true,
     },
     album_color: {
       type: String,
-      require: true
+      require: true,
     },
     album_year: {
       type: Number,
-      require: true
-    }
-  }
+      require: true,
+    },
+  },
 };
 </script>
 

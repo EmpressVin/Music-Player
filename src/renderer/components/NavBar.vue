@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import { ipcRenderer } from "electron";
+import { ipcRenderer } from 'electron';
 
 export default {
-  name: "NavBar",
+  name: 'NavBar',
   methods: {
     addSongs() {
-      ipcRenderer.send("index-music-library");
-    }
-  }
+      ipcRenderer.send('index-music-library');
+    },
+  },
 };
 </script>
 

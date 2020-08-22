@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-full h-full px-8 pt-20 flex justify-center items-center main-view"
-  >
+  <div class="w-full h-full px-8 pt-20 flex justify-center items-center main-view">
     <div class="w-full h-full flex flex-col albums-view">
       <div class="w-full flex flex-col">
         <span class="mb-4 text-5xl font-bold">Albums</span>
@@ -23,23 +21,23 @@
 </template>
 
 <script>
-import { ipcRenderer } from "electron";
-import { getAlbumCoverPath } from "../helpers/util";
+import { ipcRenderer } from 'electron';
+import { getAlbumCoverPath } from '../helpers/util';
 
-import AlbumThumbnail from "../components/AlbumThumbnail";
+import AlbumThumbnail from '../components/AlbumThumbnail';
 
 // ipcRenderer.send("index-music-library");
 
 export default {
-  name: "Albums",
+  name: 'Albums',
   components: { AlbumThumbnail },
   data() {
     return {
-      albums: []
+      albums: [],
     };
   },
   async created() {
-    ipcRenderer.send("req-all-albums");
+    ipcRenderer.send('req-all-albums');
     ipcRenderer.once("res-all-albums", async (event, data) => { //eslint-disable-line
       this.albums = data;
     });
@@ -47,8 +45,8 @@ export default {
   methods: {
     getAlbumCoverPath(i) {
       return getAlbumCoverPath(this.albums[i].album_id);
-    }
-  }
+    },
+  },
 };
 </script>
 

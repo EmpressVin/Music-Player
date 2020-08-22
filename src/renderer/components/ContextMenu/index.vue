@@ -1,18 +1,18 @@
 <script>
-import ContextMenuBuilder from "./builder";
+import ContextMenuBuilder from './builder';
 
 export default {
-  name: "ContextMenu",
+  name: 'ContextMenu',
   functional: true,
   props: {
     type: {
       type: String,
-      required: true
+      required: true,
     },
     position: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   render: function(createElement, ctx) {
     const contextMenuItems = ContextMenuBuilder(ctx.props.type, createElement);
@@ -35,17 +35,17 @@ export default {
     }
 
     return createElement(
-      "nav",
+      'nav',
       {
         style: {
           top: `${menuY}px`,
-          left: `${menuX}px`
+          left: `${menuX}px`,
         },
-        class: "context-menu"
+        class: 'context-menu',
       },
       contextMenuItems
     );
-  }
+  },
 };
 </script>
 

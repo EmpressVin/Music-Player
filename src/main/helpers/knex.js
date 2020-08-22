@@ -1,9 +1,9 @@
-import knex from "../loaders/knex";
+import knex from '../loaders/knex';
 
 /** @param {Knex} knex **/
 export const getIdIfExists = async (tableName, options) => {
   const res = await knex(tableName)
-    .select("id")
+    .select('id')
     .where(options);
 
   if (res.length === 0) return null;

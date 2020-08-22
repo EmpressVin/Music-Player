@@ -1,12 +1,12 @@
 <script>
 export default {
-  name: "ContextMenuDivider",
+  name: 'ContextMenuDivider',
   functional: true,
   render: function(createElement) {
-    return createElement("hr", {
-      class: "context-menu__divider"
+    return createElement('hr', {
+      class: 'context-menu__divider',
     });
-  }
+  },
 };
 </script>
 

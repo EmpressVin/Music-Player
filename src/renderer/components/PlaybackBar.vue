@@ -24,36 +24,36 @@
 
 <script>
 // Import Vuex store related items
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 
 let isHover = false;
 let isInput = false;
 
 export default {
-  name: "PlaybackBar",
+  name: 'PlaybackBar',
   data: function() {
     return {
-      localElapsedTime: 0
+      localElapsedTime: 0,
     };
   },
   computed: {
     ...mapGetters({
-      elapsedTime: "Player/getElapsedTime",
-      duration: "Player/getDuration"
-    })
+      elapsedTime: 'Player/getElapsedTime',
+      duration: 'Player/getDuration',
+    }),
   },
   watch: {
     elapsedTime(newTime) {
       if (!isInput) this.localElapsedTime = newTime;
       this.updateBarProgress();
-    }
+    },
   },
   methods: {
     ...mapActions({
-      seekSong: "Player/seekSong"
+      seekSong: 'Player/seekSong',
     }),
     updateBarProgress() {
-      const color = isHover === false ? "#b3b3b3" : "#1db954";
+      const color = isHover === false ? '#b3b3b3' : '#1db954';
       const percent = (this.localElapsedTime / this.duration) * 100;
 
       const gradient = `linear-gradient(90deg, ${color} ${percent}%, #404040 ${percent}%)`;
@@ -84,8 +84,8 @@ export default {
       const secString = sec < 10 ? `0${sec}` : `${sec}`;
 
       return `${min}:${secString}`;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -114,7 +114,7 @@ export default {
   display: flex;
   align-items: center;
 
-  &:hover input[type="range"]::-webkit-slider-thumb {
+  &:hover input[type='range']::-webkit-slider-thumb {
     width: 0.75rem;
     height: 0.75rem;
     margin-top: -0.25rem;

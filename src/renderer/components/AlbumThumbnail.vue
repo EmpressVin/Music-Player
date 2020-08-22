@@ -13,10 +13,7 @@
         <button class="album-cover-overlay__icon" @contextmenu.stop>
           <SvgIcon fill="white" :path="heartOutlinedPath" />
         </button>
-        <button
-          class="album-cover-overlay__icon--large-interactive"
-          @contextmenu.stop
-        >
+        <button class="album-cover-overlay__icon--large-interactive" @contextmenu.stop>
           <SvgIcon fill="white" :path="playOutlinedPath" />
         </button>
         <button class="album-cover-overlay__icon" @contextmenu.stop>
@@ -24,12 +21,8 @@
         </button>
       </div>
     </button>
-    <span class="album-thumbnail__title truncate-text--ellipsis">{{
-      albumName
-    }}</span>
-    <span class="album-thumbnail__artists truncate-text--ellipsis">{{
-      artistName
-    }}</span>
+    <span class="album-thumbnail__title truncate-text--ellipsis">{{ albumName }}</span>
+    <span class="album-thumbnail__artists truncate-text--ellipsis">{{ artistName }}</span>
     <portal to="contextmenu" v-if="showContextMenu">
       <ContextMenu type="albumContextMenu" :position="mousePostion" />
     </portal>
@@ -37,13 +30,13 @@
 </template>
 
 <script>
-import SvgIcon from "@/components/ui/SvgIcon";
-import ContextMenu from "@/components/ContextMenu";
+import SvgIcon from '@/components/ui/SvgIcon';
+import ContextMenu from '@/components/ContextMenu';
 
-import * as IconPath from "@/../constants/iconPaths";
+import * as IconPath from '@/../constants/iconPaths';
 
 export default {
-  name: "AlbumThumbnail",
+  name: 'AlbumThumbnail',
   components: { SvgIcon, ContextMenu },
   data() {
     return {
@@ -51,32 +44,32 @@ export default {
       showContextMenu: false,
       mousePostion: {
         x: 0,
-        y: 0
+        y: 0,
       },
       heartOutlinedPath: IconPath.HEART_OUTLINED,
       navigationFilledPath: IconPath.NAVIGATION_FILLED,
-      playOutlinedPath: IconPath.PLAY_OUTLINED
+      playOutlinedPath: IconPath.PLAY_OUTLINED,
     };
   },
   props: {
     albumId: {
       type: Number,
-      required: true
+      required: true,
     },
     albumImage: String,
     albumName: String,
-    artistName: String
+    artistName: String,
   },
   methods: {
     handleContextMenu(e) {
       this.mousePostion = {
         x: e.clientX,
-        y: e.clientY
+        y: e.clientY,
       };
 
       this.showContextMenu = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -93,7 +86,7 @@ export default {
   &::after {
     @include square-size(100%);
     @include absolute($top: 0, $left: 0);
-    content: "\A";
+    content: '\A';
     background: rgba(0, 0, 0, 0.55);
     opacity: 0;
     transition: all 0.25s;

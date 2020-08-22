@@ -1,5 +1,5 @@
 // Import the library that will play music
-import { Howl } from "howler";
+import { Howl } from 'howler';
 
 // Create a class for the music player
 export default class MusicPlayer { //eslint-disable-line
@@ -30,10 +30,10 @@ export default class MusicPlayer { //eslint-disable-line
       onend: () => {
         clearInterval(this.timer);
         onEnd();
-      }
+      },
     });
 
-    this.current.once("load", () => {
+    this.current.once('load', () => {
       onSuccess(this.current.duration());
     });
   }

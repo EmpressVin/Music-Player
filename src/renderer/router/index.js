@@ -1,28 +1,28 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Albums from "../views/Albums.vue";
-import Album from "../views/Album.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Albums from '../views/Albums.vue';
+import Album from '../views/Album.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Albums",
-    component: Albums
+    path: '/',
+    name: 'Albums',
+    component: Albums,
   },
   {
-    path: "/album/:id",
-    name: "Album",
+    path: '/album/:id',
+    name: 'Album',
     component: Album,
-    props: true
-  }
+    props: true,
+  },
 ];
 
 const router = new VueRouter({
-  mode: "hash",
+  mode: 'hash',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

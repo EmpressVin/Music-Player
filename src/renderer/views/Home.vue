@@ -39,42 +39,36 @@
 </template>
 
 <script>
-import { ipcRenderer } from "electron";
+import { ipcRenderer } from 'electron';
 
-import NavBar from "../components/NavBar";
-import AlbumList from "../components/AlbumList";
+import NavBar from '../components/NavBar';
+import AlbumList from '../components/AlbumList';
 
 // Used to play songs
 // import { Howl } from "howler";
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: { NavBar, AlbumList },
   data() {
     return {
       currentlyPlayingName: null,
-      currentlyPlaying: null
+      currentlyPlaying: null,
     };
   },
   methods: {
     playSong() {
-      if (
-        this.currentlyPlaying !== null &&
-        this.currentlyPlaying.playing() === false
-      ) {
+      if (this.currentlyPlaying !== null && this.currentlyPlaying.playing() === false) {
         this.currentlyPlaying.play();
       }
     },
     pauseSong() {
-      if (
-        this.currentlyPlaying !== null &&
-        this.currentlyPlaying.playing() === true
-      ) {
+      if (this.currentlyPlaying !== null && this.currentlyPlaying.playing() === true) {
         this.currentlyPlaying.pause();
       }
     },
     selectSong() {
-      ipcRenderer.send("index-music-library");
+      ipcRenderer.send('index-music-library');
       // const songPath = electron.remote.dialog.showOpenDialogSync({
       //   title: "Select a song...",
       //   properties: ["openFile"]
@@ -87,8 +81,8 @@ export default {
       //   this.currentlyPlaying = song;
       //   song.play();
       // }
-    }
-  }
+    },
+  },
 };
 </script>
 

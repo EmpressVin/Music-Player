@@ -19,27 +19,27 @@
 
 <script>
 export default {
-  name: "Slider",
+  name: 'Slider',
   props: {
     start: {
       type: Number,
-      required: true
+      required: true,
     },
     end: {
       type: Number,
-      required: true
+      required: true,
     },
     value: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   watch: {
     value: function(val) {
       const percent = (val / this.end) * 100;
       const color = `linear-gradient(90deg, #b3b3b3 ${percent}%, #404040 ${percent}%)`;
       this.$refs.slider.style.background = color;
-    }
+    },
   },
   methods: {
     mouseEnter() {
@@ -56,8 +56,8 @@ export default {
       const percent = (this.$refs.slider.value / this.end) * 100;
       const color = `linear-gradient(90deg, #1db954 ${percent}%, #404040 ${percent}%)`;
       this.$refs.slider.style.background = color;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -68,7 +68,7 @@ export default {
   display: flex;
   align-items: center;
 
-  &:hover input[type="range"]::-webkit-slider-thumb {
+  &:hover input[type='range']::-webkit-slider-thumb {
     width: 0.75rem;
     height: 0.75rem;
     margin-top: -0.25rem;

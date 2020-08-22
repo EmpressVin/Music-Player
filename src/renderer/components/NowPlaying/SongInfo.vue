@@ -5,7 +5,7 @@
       <span class="song-info__song-title">{{ songInfo.title }}</span>
       <div class="song-info__song-artists">
         <span v-for="(artist, index) in songInfo.artists" :key="index">{{
-          `${index !== 0 ? ", " : ""}${artist}`
+          `${index !== 0 ? ', ' : ''}${artist}`
         }}</span>
       </div>
     </div>
@@ -14,35 +14,35 @@
 
 <script>
 // Import Vuex store related items
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 // Import electron related items
-import { ipcRenderer } from "electron";
+import { ipcRenderer } from 'electron';
 
-import { getAlbumCoverPath } from "../../helpers/util";
+import { getAlbumCoverPath } from '../../helpers/util';
 
 export default {
-  name: "SongInfo",
+  name: 'SongInfo',
   data() {
     return {
       songInfo: {},
-      coverPath: ""
+      coverPath: '',
     };
   },
   computed: {
     ...mapGetters({
-      id: "Player/getCurrentSongId"
-    })
+      id: 'Player/getCurrentSongId',
+    }),
   },
   watch: {
     id: function() {
       if (this.id !== null) {
-        ipcRenderer.send("req-song-by-id", this.id);
+        ipcRenderer.send('req-song-by-id', this.id);
         ipcRenderer.once("res-song-by-id", async (event, data) => { //eslint-disable-line
           let obj = {
             title: data[0].song_title,
             albumId: data[0].album_id,
-            artists: []
+            artists: [],
           };
 
           data.forEach(song => {
@@ -53,8 +53,8 @@ export default {
           this.coverPath = getAlbumCoverPath(obj.albumId);
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

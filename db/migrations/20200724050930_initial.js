@@ -1,20 +1,20 @@
 const Knex = require("knex"); //eslint-disable-line
 
-const tableNames = require("../../src/constants/tableNames");
+const tableNames = require('../../src/constants/tableNames');
 
 const addForeignKey = (table, column, foreignColumn) => {
   table.integer(column).unsigned();
   table
     .foreign(column)
     .references(foreignColumn)
-    .onDelete("cascade");
+    .onDelete('cascade');
 };
 
 const createSimpleNameTable = (knex, tableName) => {
   return knex.schema.createTable(tableName, table => {
     table.increments().notNullable();
     table
-      .string("name", 127)
+      .string('name', 127)
       .notNullable()
       .unique();
   });
@@ -41,45 +41,45 @@ exports.up = async knex => {
     createSimpleNameTable(knex, tableNames.label),
     knex.schema.createTable(tableNames.album, table => {
       table.increments().notNullable();
-      table.string("name", 127).notNullable();
-      table.string("color", 7).notNullable();
-      table.integer("year");
-      table.date("date");
-    })
+      table.string('name', 127).notNullable();
+      table.string('color', 7).notNullable();
+      table.integer('year');
+      table.date('date');
+    }),
   ]);
 
   await knex.schema.createTable(tableNames.song, table => {
     table.increments().notNullable();
     table
-      .text("path")
+      .text('path')
       .notNullable()
       .unique();
-    table.string("title", 127).notNullable();
-    table.string("isrc_code", 12);
-    table.integer("year");
-    table.date("date");
-    addForeignKey(table, "album_id", "album.id");
+    table.string('title', 127).notNullable();
+    table.string('isrc_code', 12);
+    table.integer('year');
+    table.date('date');
+    addForeignKey(table, 'album_id', 'album.id');
   });
 
   await Promise.all([
     createJoinTable(
       knex,
       tableNames.song_artist,
-      ["song_id", "artist_id"],
-      ["song.id", "artist.id"]
+      ['song_id', 'artist_id'],
+      ['song.id', 'artist.id']
     ),
     createJoinTable(
       knex,
       tableNames.album_artist,
-      ["album_id", "artist_id"],
-      ["album.id", "artist.id"]
+      ['album_id', 'artist_id'],
+      ['album.id', 'artist.id']
     ),
     createJoinTable(
       knex,
       tableNames.album_label,
-      ["album_id", "label_id"],
-      ["album.id", "label.id"]
-    )
+      ['album_id', 'label_id'],
+      ['album.id', 'label.id']
+    ),
   ]);
 };
 
@@ -88,7 +88,7 @@ exports.down = async knex => {
   await Promise.all([
     dropTable(knex, tableNames.artist),
     dropTable(knex, tableNames.label),
-    dropTable(knex, tableNames.album)
+    dropTable(knex, tableNames.album),
   ]);
 
   await dropTable(knex, tableNames.song);
@@ -96,6 +96,6 @@ exports.down = async knex => {
   await Promise.all([
     dropTable(knex, tableNames.song_artist),
     dropTable(knex, tableNames.album_artist),
-    dropTable(knex, tableNames.album_label)
+    dropTable(knex, tableNames.album_label),
   ]);
 };

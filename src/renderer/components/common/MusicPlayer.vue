@@ -4,11 +4,11 @@
 
 <script>
 // Import Vuex store related items
-import { mapGetters } from "vuex";
-import { mapMutations } from "vuex";
+import { mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 
 // Import the library that will play music
-import { Howl } from "howler";
+import { Howl } from 'howler';
 
 // Create a class for the music player
 class Player {
@@ -24,10 +24,10 @@ class Player {
       src: `local://${path}`,
       volume: this.volumeLevel,
       autoplay: true,
-      html5: true
+      html5: true,
     });
 
-    this.current.once("load", () => {
+    this.current.once('load', () => {
       setPlaying(true);
     });
   }
@@ -73,17 +73,17 @@ class Player {
 }
 
 export default {
-  name: "MusicPlayer",
+  name: 'MusicPlayer',
   data() {
     return {
-      test: "hi"
+      test: 'hi',
     };
   },
   computed: {
     ...mapGetters({
-      currentSong: "Player/getCurrentSong",
-      isPlaying: "Player/isPlaying"
-    })
+      currentSong: 'Player/getCurrentSong',
+      isPlaying: 'Player/isPlaying',
+    }),
   },
   watch: {
     // When current song changes play the new song
@@ -94,15 +94,15 @@ export default {
     isPlaying(newState) {
       if (newState === false) Player.pause(this.setPlaying);
       else Player.resume(this.setPlaying);
-    }
+    },
   },
   methods: {
     ...mapMutations({
-      setPlaying: "Player/SET_PLAYING"
+      setPlaying: 'Player/SET_PLAYING',
     }),
     t() {
-      this.test = "Bye";
-    }
-  }
+      this.test = 'Bye';
+    },
+  },
 };
 </script>

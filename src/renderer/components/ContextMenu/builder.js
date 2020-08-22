@@ -1,44 +1,44 @@
-import ContextMenuItem from "./ContextMenuItem";
-import ContextMenuDivider from "./ContextMenuDivider";
+import ContextMenuItem from './ContextMenuItem';
+import ContextMenuDivider from './ContextMenuDivider';
 
-import * as IconPath from "@/../constants/iconPaths";
+import * as IconPath from '@/../constants/iconPaths';
 
 const createContextMenuItem = (createElement, { text, icon, action }) => { //eslint-disable-line
   return createElement(ContextMenuItem, {
     props: {
       icon,
-      text
-    }
+      text,
+    },
   });
 };
 
 const getContextMenuItem = (createElement, itemName) => {
   switch (itemName) {
-    case "Add to Queue":
+    case 'Add to Queue':
       return createContextMenuItem(createElement, {
         text: itemName,
         icon: IconPath.MUSIC_QUEUE_FILLED,
         action: () => {
-          console.log("aaaaaa");
-        }
+          console.log('aaaaaa');
+        },
       });
-    case "Add to Playlist":
+    case 'Add to Playlist':
       return createContextMenuItem(createElement, {
         text: itemName,
         icon: IconPath.PLAYLIST_ADD_FILLED,
         action: () => {
-          console.log("Playlist!!!");
-        }
+          console.log('Playlist!!!');
+        },
       });
-    case "Go to Artist":
+    case 'Go to Artist':
       return createContextMenuItem(createElement, {
         text: itemName,
         icon: IconPath.AUDIO_TRACK_FILLED,
         action: () => {
-          console.log("dsfdsf");
-        }
+          console.log('dsfdsf');
+        },
       });
-    case "Divider":
+    case 'Divider':
       return createElement(ContextMenuDivider);
   }
 };
@@ -47,15 +47,15 @@ export default (type, createElement) => {
   let contextMenuItemTypes;
 
   switch (type) {
-    case "albumContextMenu":
-      contextMenuItemTypes = ["Add to Queue", "Add to Playlist"];
+    case 'albumContextMenu':
+      contextMenuItemTypes = ['Add to Queue', 'Add to Playlist'];
       break;
-    case "songContextMenu":
+    case 'songContextMenu':
       contextMenuItemTypes = [
-        "Add to Queue",
-        "Go to Artist",
-        "Divider",
-        "Add to Playlist"
+        'Add to Queue',
+        'Go to Artist',
+        'Divider',
+        'Add to Playlist',
       ];
       break;
   }

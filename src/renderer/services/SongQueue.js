@@ -9,10 +9,10 @@ class SongNode {
 }
 
 // Symbol definitions
-const head = Symbol("head");
-const tail = Symbol("tail");
-const current = Symbol("current");
-const length = Symbol("length");
+const head = Symbol('head');
+const tail = Symbol('tail');
+const current = Symbol('current');
+const length = Symbol('length');
 
 // Create the song queue class
 export default class SongQueue {
@@ -47,9 +47,7 @@ export default class SongQueue {
     const searchedSong = this.findById(id);
 
     if (searchedSong === null) {
-      throw new ReferenceError(
-        `Song with id (${id}) does not exist in the song queue.`
-      );
+      throw new ReferenceError(`Song with id (${id}) does not exist in the song queue.`);
     } else {
       this[current] = searchedSong;
     }

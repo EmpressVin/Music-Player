@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-full h-full px-8 pt-12 flex justify-center items-center main-view"
-  >
+  <div class="w-full h-full px-8 pt-12 flex justify-center items-center main-view">
     <div class="w-full h-full flex flex-col albums-view">
       <AlbumHeader
         :album_name="albumInfo.album_name"
@@ -11,9 +9,7 @@
         :artist_name="albumInfo.artist_name"
       ></AlbumHeader>
       <div class="w-full mt-6 flex flex-col text-xs">
-        <div
-          class="w-full pb-1 flex flex-row items-center text-low-emphasis song-item"
-        >
+        <div class="w-full pb-1 flex flex-row items-center text-low-emphasis song-item">
           <div class="w-8 flex justify-center">#</div>
           <div class="mr-3 w-10"></div>
           <div class="tracking-widest">TITLE</div>
@@ -32,36 +28,36 @@
 </template>
 
 <script>
-import { ipcRenderer, webFrame } from "electron";
-import { mapActions } from "vuex";
+import { ipcRenderer, webFrame } from 'electron';
+import { mapActions } from 'vuex';
 
-import { getAlbumCoverPath } from "../helpers/util";
+import { getAlbumCoverPath } from '../helpers/util';
 
-import AlbumHeader from "../components/AlbumHeader";
-import SongRow from "../components/SongRow";
+import AlbumHeader from '../components/AlbumHeader';
+import SongRow from '../components/SongRow';
 
 export default {
-  name: "Album",
+  name: 'Album',
   components: { AlbumHeader, SongRow },
   props: {
     id: {
       type: String,
-      require: true
-    }
+      require: true,
+    },
   },
   data() {
     return {
       albumInfo: {},
-      songs: []
+      songs: [],
     };
   },
   created() {
     webFrame.clearCache();
-    ipcRenderer.send("req-album-info", this.id);
+    ipcRenderer.send('req-album-info', this.id);
     ipcRenderer.once("res-album-info", async (event, data) => { //eslint-disable-line
       this.albumInfo = data;
 
-      ipcRenderer.send("req-all-album-songs", this.id);
+      ipcRenderer.send('req-all-album-songs', this.id);
       ipcRenderer.once("res-all-album-songs", async (event, data) => { //eslint-disable-line
         let songsObj = {};
 
@@ -69,7 +65,7 @@ export default {
           if (song.song_id in songsObj) {
             songsObj[song.song_id].artists.push({
               id: song.artist_id,
-              name: song.artist_name
+              name: song.artist_name,
             });
           } else {
             songsObj[song.song_id] = {
@@ -79,9 +75,9 @@ export default {
               artists: [
                 {
                   id: song.artist_id,
-                  name: song.artist_name
-                }
-              ]
+                  name: song.artist_name,
+                },
+              ],
             };
           }
         });
@@ -92,12 +88,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      playAlbum: "Player/playAlbum"
+      playAlbum: 'Player/playAlbum',
     }),
     getAlbumCoverPath() {
       return getAlbumCoverPath(this.id);
-    }
-  }
+    },
+  },
 };
 </script>
 

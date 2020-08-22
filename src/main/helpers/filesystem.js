@@ -1,18 +1,18 @@
-import path from "path";
-import { promises as fs } from "fs";
+import path from 'path';
+import { promises as fs } from 'fs';
 
 // Image manipulation library that will be used to resize and save images to disk
-import Jimp from "jimp/es";
+import Jimp from 'jimp/es';
 
 // Used to get path to the app's data folder on the user's system
-import * as ap from "appdata-path";
+import * as ap from 'appdata-path';
 
 const isMusicFile = fp => {
-  return [".wav", ".mp3", ".flac"].includes(path.extname(fp));
+  return ['.wav', '.mp3', '.flac'].includes(path.extname(fp));
 };
 
 export const getAppDataPath = () => {
-  return ap("music-player");
+  return ap('music-player');
 };
 
 export const getAllMusicFilePaths = async dp => {
@@ -39,10 +39,7 @@ export const getAllMusicFilePaths = async dp => {
 };
 
 export const saveAlbumArtwork = async (buffer, id) => {
-  const albumCoverPath = path.join(
-    getAppDataPath(),
-    `Artwork/Albums/${id + 1}.jpg`
-  );
+  const albumCoverPath = path.join(getAppDataPath(), `Artwork/Albums/${id + 1}.jpg`);
 
   Jimp.read(buffer)
     .then(img => {

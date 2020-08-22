@@ -1,11 +1,7 @@
 <template>
   <div class="now-playing-bar__extra-control">
     <div class="extra-control__volume-control">
-      <button
-        class="icon"
-        v-show="!isMuted && volumeLevel >= 0.5"
-        @click="toggleSound"
-      >
+      <button class="icon" v-show="!isMuted && volumeLevel >= 0.5" @click="toggleSound">
         <svg
           width="20"
           height="20"
@@ -35,11 +31,7 @@
           />
         </svg>
       </button>
-      <button
-        class="icon"
-        v-show="!isMuted && volumeLevel == 0"
-        @click="toggleSound"
-      >
+      <button class="icon" v-show="!isMuted && volumeLevel == 0" @click="toggleSound">
         <svg
           width="20"
           height="20"
@@ -84,16 +76,16 @@
 
 <script>
 // Import Vuex store related items
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 let hover = false;
 
 export default {
-  name: "VolumeBar",
+  name: 'VolumeBar',
   data() {
     return {
       isMuted: false,
-      volumeLevel: 1
+      volumeLevel: 1,
     };
   },
   mounted() {
@@ -101,14 +93,14 @@ export default {
   },
   methods: {
     ...mapActions({
-      changeVolumeLevel: "Player/changeVolumeLevel"
+      changeVolumeLevel: 'Player/changeVolumeLevel',
     }),
     toggleSound() {
       this.isMuted = !this.isMuted;
-      window.Event.$emit("toggle-sound", this.isMuted);
+      window.Event.$emit('toggle-sound', this.isMuted);
     },
     updateBarProgress() {
-      const color = hover === false ? "#b3b3b3" : "#1db954";
+      const color = hover === false ? '#b3b3b3' : '#1db954';
       const percent = (this.volumeLevel / 1) * 100;
 
       const gradient = `linear-gradient(90deg, ${color} ${percent}%, #404040 ${percent}%)`;
@@ -126,8 +118,8 @@ export default {
       hover = true;
       this.updateBarProgress();
       this.changeVolumeLevel(this.volumeLevel);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -156,7 +148,7 @@ export default {
   display: flex;
   align-items: center;
 
-  &:hover input[type="range"]::-webkit-slider-thumb {
+  &:hover input[type='range']::-webkit-slider-thumb {
     width: 0.75rem;
     height: 0.75rem;
     margin-top: -0.25rem;

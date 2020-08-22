@@ -10,24 +10,24 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
-import NowPlayingBar from "./components/NowPlayingBar";
+import NavBar from './components/NavBar';
+import NowPlayingBar from './components/NowPlayingBar';
 
 export default {
-  name: "App",
-  components: { NavBar, NowPlayingBar }
+  name: 'App',
+  components: { NavBar, NowPlayingBar },
 };
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -59,7 +59,7 @@ body {
   }
 }
 
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
   background: linear-gradient(90deg, #b3b3b3 0%, #404040 0%);
   border-radius: 2px;

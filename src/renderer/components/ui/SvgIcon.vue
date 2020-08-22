@@ -1,34 +1,34 @@
 <script>
 export default {
-  name: "Icon",
+  name: 'Icon',
   functional: true,
   render: function(createElement, ctx) {
     return createElement(
-      "svg",
+      'svg',
       {
         attrs: {
-          viewBox: "0 0 24 24"
+          viewBox: '0 0 24 24',
         },
-        class: `${ctx.props.className}`
+        class: `${ctx.props.className}`,
       },
       [
-        createElement("path", {
+        createElement('path', {
           attrs: {
-            d: ctx.props.path
-          }
-        })
+            d: ctx.props.path,
+          },
+        }),
       ]
     );
   },
   props: {
     path: {
       type: String,
-      required: true
+      required: true,
     },
     className: {
       type: String,
-      required: false
-    }
-  }
+      required: false,
+    },
+  },
 };
 </script>
