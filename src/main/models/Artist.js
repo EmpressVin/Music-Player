@@ -20,6 +20,7 @@ export default class Artist extends Model {
           through: {
             from: `${tableNames.song_artist}.artist_id`,
             to: `${tableNames.song_artist}.song_id`,
+            extra: ['order'],
           },
           to: `${tableNames.song}.id`,
         },
@@ -32,6 +33,7 @@ export default class Artist extends Model {
           through: {
             from: `${tableNames.album_artist}.artist_id`,
             to: `${tableNames.album_artist}.album_id`,
+            extra: ['order'],
           },
           to: `${tableNames.album}.id`,
         },

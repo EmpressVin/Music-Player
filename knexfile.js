@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
   development: {
+    debug: true,
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {

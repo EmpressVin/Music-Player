@@ -14,6 +14,16 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
+      chainWebpackMainProcess: config => {
+        config.resolve.alias
+          .set('#', path.resolve(__dirname, 'src/main'))
+          .set('Constants', path.resolve(__dirname, 'src/constants'));
+      },
+      chainWebpackRendererProcess: config => {
+        config.resolve.alias
+          .set('@', path.resolve(__dirname, 'src/renderer'))
+          .set('Constants', path.resolve(__dirname, 'src/constants'));
+      },
       builderOptions: {
         extraFiles: [
           {
@@ -24,14 +34,6 @@ module.exports = {
       },
       externals: ['sqlite3', 'knex'],
       nodeIntegration: true,
-    },
-  },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src/renderer'),
-        Constants: path.resolve(__dirname, 'src/constants'),
-      },
     },
   },
   chainWebpack: config => {

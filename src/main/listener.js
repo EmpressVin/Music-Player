@@ -7,17 +7,19 @@ import Album from './services/album';
 import Song from './services/song';
 
 // Import helper functions
-import { getAllMusicFilePaths, saveAlbumArtwork } from './helpers/filesystem';
+import { getAllMusicFilePaths } from './helpers/filesystem';
 
 export default () => {
   ipcMain.on("index-music-library", async event => { //eslint-disable-line
+    // Electron function to show an open directory dialog to user
     const openObj = await dialog.showOpenDialog({
       properties: ['openDirectory'],
     });
 
+    // If the user selected a valid directory
     if (!openObj.canceled) {
       const filePaths = await getAllMusicFilePaths(openObj.filePaths[0]);
-      let currentAlbumId = await Album.nextId();
+      // let currentAlbumId = await Album.nextId();
 
       for (let i = 0; i < filePaths.length; ++i) {
         const fp = filePaths[i];
@@ -28,42 +30,47 @@ export default () => {
           date: parsedMetadata.common.date,
         };
 
-        let albumId = await Album.exists(albumObj);
+        // Check if the album is already in database
+        // If it is there is no need to add the album data again
+        let albumId = await Album.getId(albumObj.name, albumObj.year);
         if (albumId == null) {
-          await saveAlbumArtwork(parsedMetadata.common.picture[0].data, currentAlbumId);
-
-          currentAlbumId++;
-
-          const palette = await Vibrant.from(
-            parsedMetadata.common.picture[0].data
-          ).getPalette();
+          const albumCoverArt = parsedMetadata.common.picture[0].data;
+          const palette = await Vibrant.from(albumCoverArt).getPalette();
           const [red, green, blue] = palette.Vibrant.getRgb();
 
           albumObj.color = `${red}, ${green}, ${blue}`;
 
-          albumId = await Album.insert(albumObj, true);
+          // await saveAlbumArtwork(albumCoverArt, currentAlbumId);
+
+          // currentAlbumId++;
           const albumArtists = parsedMetadata.common.albumartist.split('; ');
-          await Album.addArtists(albumId, albumArtists);
+          const artistsData = albumArtists.map((artist, index) => {
+            return { name: artist, order: index };
+          });
+
+          albumId = await Album.insertWithArtists(albumObj, artistsData);
+          console.log(albumId);
+          // await Album.addArtists(albumId, albumArtists);
         }
 
-        const songObj = {
-          title: parsedMetadata.common.title,
-          album_id: albumId,
-          isrc_code:
-            parsedMetadata.common.isrc == undefined
-              ? undefined
-              : parsedMetadata.common.isrc[0],
-          year: parsedMetadata.common.year,
-          date: parsedMetadata.common.date,
-          path: fp,
-        };
+        // const songObj = {
+        //   title: parsedMetadata.common.title,
+        //   album_id: albumId,
+        //   isrc_code:
+        //     parsedMetadata.common.isrc == undefined
+        //       ? undefined
+        //       : parsedMetadata.common.isrc[0],
+        //   year: parsedMetadata.common.year,
+        //   date: parsedMetadata.common.date,
+        //   path: fp,
+        // };
 
-        if ((await Song.exists(songObj)) != null) continue;
-        const songId = await Song.insert(songObj, true);
+        // if ((await Song.exists(songObj)) != null) continue;
+        // const songId = await Song.insert(songObj, true);
 
-        const songArtists = parsedMetadata.common.artist.split('; ');
+        // const songArtists = parsedMetadata.common.artist.split('; ');
 
-        await Song.addArtists(songId, songArtists);
+        // await Song.addArtists(songId, songArtists);
       }
     }
   });

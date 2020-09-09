@@ -1,9 +1,9 @@
-import knex from "../loaders/knex";
+import knex from '#/loaders/database';
 
-import tableNames from "../../constants/tableNames";
+import tableNames from 'Constants/tableNames';
 
 // Import Knex helper functions
-import { getIdIfExists } from "../helpers/knex";
+import { getIdIfExists } from '#/helpers/database';
 
 export default class LabelService {
   static async addLabel(obj) {

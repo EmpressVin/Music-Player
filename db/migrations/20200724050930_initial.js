@@ -20,13 +20,22 @@ const createSimpleNameTable = (knex, tableName) => {
   });
 };
 
-const createJoinTable = (knex, tableName, columnNames, foreignColumnNames) => {
+const createJoinTable = (
+  knex,
+  tableName,
+  columnNames,
+  foreignColumnNames,
+  pos = false
+) => {
   return knex.schema.createTable(tableName, table => {
     for (let i = 0; i < columnNames.length; ++i) {
       addForeignKey(table, columnNames[i], foreignColumnNames[i]);
     }
 
     table.primary(columnNames);
+    if (pos) {
+      table.integer('order').notNullable();
+    }
   });
 };
 
@@ -66,13 +75,15 @@ exports.up = async knex => {
       knex,
       tableNames.song_artist,
       ['song_id', 'artist_id'],
-      ['song.id', 'artist.id']
+      ['song.id', 'artist.id'],
+      true
     ),
     createJoinTable(
       knex,
       tableNames.album_artist,
       ['album_id', 'artist_id'],
-      ['album.id', 'artist.id']
+      ['album.id', 'artist.id'],
+      true
     ),
     createJoinTable(
       knex,

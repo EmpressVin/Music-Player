@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import tableNames from '@/../constants/tableNames';
+import tableNames from 'Constants/tableNames';
 
 // Import all the related models
 import Album from './Album';

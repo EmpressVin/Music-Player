@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import tableNames from '@/../constants/tableNames';
+import tableNames from 'Constants/tableNames';
 
 // Import all the related models
 import Song from './Song';
@@ -29,6 +29,7 @@ export default class Album extends Model {
           through: {
             from: `${tableNames.album_artist}.album_id`,
             to: `${tableNames.album_artist}.artist_id`,
+            extra: ['order'],
           },
           to: `${tableNames.artist}.id`,
         },
